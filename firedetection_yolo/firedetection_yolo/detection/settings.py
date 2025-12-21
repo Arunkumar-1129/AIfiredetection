@@ -26,7 +26,13 @@ SECRET_KEY = 'django-insecure-5jq15gze+-l^kf40$0x*m1^jdegfp#)tipa8798hkm%e6hk&4s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'aifiredetection.onrender.com',
+    '.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
+
 
 
 # Application definition
