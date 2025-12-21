@@ -21,8 +21,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from io import BytesIO
 from datetime import datetime
 
-# Load YOLO model
-model_path = os.path.join(settings.BASE_DIR.parent, "best.pt")
+# Load YOLO model from project base directory
+model_path = os.path.join(settings.BASE_DIR, "best.pt")
 model = YOLO(model_path)
 
 @login_required(login_url='login')
