@@ -1,7 +1,7 @@
-Django==6.0.2
+Django==4.2.11
 ultralytics==8.3.70
-opencv-python==4.10.0.84
+opencv-python-headless==4.10.0.84
 reportlab==4.2.5
 numpy>=1.26,<3
 psycopg2-binary==2.9.9
-Gunicorn==23.0.0
+gunicorn==23.0.0

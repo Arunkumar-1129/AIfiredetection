@@ -1,1 +1,0 @@
-# firedetection_yolo
