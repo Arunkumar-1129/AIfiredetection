@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: fire-detection
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn detection.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
