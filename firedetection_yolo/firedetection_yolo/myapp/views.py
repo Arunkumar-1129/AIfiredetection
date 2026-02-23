@@ -12,7 +12,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from ultralytics import YOLO
 from .models import DetectionLog
-from .telegram_notifier import send_telegram_alert
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -80,17 +79,12 @@ def image_detect(request):
                     })
                     
                     # Log detection with alert flag for higher confidence
-                    alert_sent = confidence > 0.5  # 50% threshold
-                    log = DetectionLog.objects.create(
+                    DetectionLog.objects.create(
                         detection_type=class_name.lower(),
-                        confidence=confidence * 100,
+                        confidence=confidence * 100,  # Convert to percentage
                         image_path=output_filename,
-                        alert_sent=alert_sent
+                        alert_sent=True if confidence > 0.2 else False
                     )
-                    
-                    # Send Telegram notification only if confidence > 50%
-                    if alert_sent:
-                        send_telegram_alert(class_name, confidence * 100, output_filename)
             
             return JsonResponse({
                 "status": "success",
@@ -134,16 +128,11 @@ def video_feed(request):
                         confidence = float(box.conf)
                         
                         if confidence > 0.2:
-                            alert_sent = confidence > 0.5  # 50% threshold
-                            log = DetectionLog.objects.create(
+                            DetectionLog.objects.create(
                                 detection_type=class_name.lower(),
                                 confidence=confidence * 100,  
-                                alert_sent=alert_sent
+                                alert_sent=confidence > 0.4
                             )
-                            
-                            # Send Telegram notification only if confidence > 50%
-                            if alert_sent:
-                                send_telegram_alert(class_name, confidence * 100)
                 
                 # Encode frame
                 _, buffer = cv2.imencode('.jpg', annotated_frame)
