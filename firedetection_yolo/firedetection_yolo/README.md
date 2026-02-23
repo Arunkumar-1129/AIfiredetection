@@ -1,3 +1,7 @@
+
+Deployed on render:https://aifiredetection-1.onrender.com
+
+
 # 🔥 Fire Detection System
 
 A real-time AI-powered fire and smoke detection system built with Django and YOLOv8. This application provides instant detection through image uploads and live video streaming with comprehensive logging and reporting capabilities.
